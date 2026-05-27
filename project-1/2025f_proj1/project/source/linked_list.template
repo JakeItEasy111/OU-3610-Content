@@ -1,0 +1,67 @@
+
+//Destructor 
+template <class T>
+LinkedList<T>::~LinkedList(){
+    if (head == NULL){ return; }
+
+    ListNode* cursor; 
+
+    for(cursor = head; cursor -> next != NULL; cursor = cursor -> next){
+        pop_front(); 
+    }
+    return;
+}
+
+//Adds an element to the linked list as the head 
+template <class T>
+void LinkedList<T>::push_front(const T data){
+
+    ListNode* node = new ListNode(data); 
+    node -> next = head;
+    head = node; 
+
+    return;
+}
+
+//Removes the first element of the linked list 
+template <class T>
+void LinkedList<T>::pop_front(){
+    if (head == NULL){ return; }
+
+    ListNode* deleted_node = head; 
+    head = head -> next;
+    delete deleted_node;
+    return;
+}
+
+//Reverses the direction of links in the linked list with O(1) space complexity 
+template <class T>
+void LinkedList<T>::reverse(){
+    if (head == NULL) { return; }
+
+    ListNode *cursor = head, *prev = NULL, *next; 
+
+    while (cursor != NULL){
+        next = cursor -> next; //store next node for traversal
+        cursor -> next = prev; //reverse direction of this node 
+
+        //iterate through the list 
+        prev = cursor;  
+        cursor = next; 
+    }
+
+    head = prev; 
+    return;
+}
+
+//Prints each node in the linked list 
+template <class T>
+void LinkedList<T>::print() const{
+    if (head == NULL) { return; }
+
+    for(ListNode* cursor = head; cursor != NULL; cursor = cursor -> next){
+        std::cout << cursor -> data << " "; 
+    }
+    std::cout << endl; 
+    return;
+}
